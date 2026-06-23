@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video</title>
+
+<style>
+/* =========================
+   BASE
+========================= */
+body{
+    margin:0;
+    background:black;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    overflow:hidden;
+}
+
+/* =========================
+   BOUTON PLAY
+========================= */
+#playBtn{
+    font-size:50px;
+    padding:20px 40px;
+    cursor:pointer;
+    border:none;
+    background:white;
+    color:black;
+    font-weight:bold;
+}
+
+/* =========================
+   VIDEO (PC PAR DÉFAUT)
+========================= */
+video{
+    display:none;
+    width:100vw;
+    height:100vh;
+    object-fit:cover; /* 💻 PC = plein écran */
+    background:black;
+}
+
+/* =========================
+   📱 MOBILE ADAPTATION
+========================= */
+@media (max-width: 768px){
+    video{
+        object-fit:contain; /* 📱 mobile = vidéo entière */
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- bouton -->
+<button id="playBtn">▶ PLAY</button>
+
+<!-- vidéo -->
+<video id="video" loop playsinline>
+    <source src="2026-06-23-010114573.mp4" type="video/mp4">
+</video>
+
+<script>
+
+const btn = document.getElementById("playBtn");
+const video = document.getElementById("video");
+
+/* clic sur play */
+btn.onclick = async () => {
+    btn.style.display = "none";
+    video.style.display = "block";
+
+    try{
+        await video.play();
+    }catch(e){
+        console.log("lecture bloquée");
+    }
+};
+
+/* sécurité autoplay */
+window.addEventListener("load", async () => {
+    try{
+        await video.play();
+    }catch(e){}
+});
+
+</script>
+
+</body>
+</html>
